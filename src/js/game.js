@@ -76,6 +76,8 @@ const checkLetter = (letter) => {
   const inputLetter = letter.toLowerCase();
   if (!word.includes(inputLetter)) {
     const triesCounter = document.getElementById("tries-left");
+    const wrongLetter = new Audio('sounds/wrongletter.mp3');
+    wrongLetter.play();
     triesLeft -= 1;
     triesCounter.innerText = triesLeft;
 
@@ -89,6 +91,8 @@ const checkLetter = (letter) => {
     const wordArray = Array.from(word);
     wordArray.forEach((currentLetter, i) => {
       if (currentLetter === inputLetter) {
+        const rightLetter = new Audio('sounds/rightletter.mp3');
+        rightLetter.play();
         winCount += 1;
         if (winCount === word.length) {
           stopGame("win");

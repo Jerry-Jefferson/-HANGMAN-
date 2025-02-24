@@ -71,11 +71,18 @@ const createHangmanImg = () => {
   return image;
 };
 
+function playSound(soundId) {
+  const sound = document.getElementById(soundId);
+  sound.currentTime = 0;
+  sound.play();
+}
+
 const checkLetter = (letter) => {
   const word = sessionStorage.getItem("word");
   const inputLetter = letter.toLowerCase();
   if (!word.includes(inputLetter)) {
     const triesCounter = document.getElementById("tries-left");
+    playSound('wrongSound');
     triesLeft -= 1;
     triesCounter.innerText = triesLeft;
 
@@ -89,6 +96,7 @@ const checkLetter = (letter) => {
     const wordArray = Array.from(word);
     wordArray.forEach((currentLetter, i) => {
       if (currentLetter === inputLetter) {
+        playSound('rightSound');
         winCount += 1;
         if (winCount === word.length) {
           stopGame("win");
